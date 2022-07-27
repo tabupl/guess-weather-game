@@ -8,10 +8,10 @@ interface AnswersDisplayProps {
 
 const AnswersDisplay = ({ guesses }: AnswersDisplayProps): JSX.Element => (
   <div className='container mt-4 w-100'>
-    <div className='row justify-content-between'>
+    <div className='row justify-content-center'>
       {guesses.map((guess) => (
         <Card
-          className={`col-md-2 col-sm-12 text-white my-2 ${
+          className={`mx-2 col-md-2 col-sm-12 text-white my-2 ${
             isGuessCorrect(guess) ? 'bg-success' : 'bg-danger'
           }`}
           key={`${guess.city}-${guess.guessedTemperature}`}
