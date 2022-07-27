@@ -3,6 +3,7 @@ import { availableCities } from '../../../api/weatherApi/cities'
 import { getCity } from '../../../api/weatherApi/weather-api'
 import AnswersDisplay from './AnswersDisplay'
 import CityGuess from './CityGuess'
+import ErrorNotification from './ErrorNotification'
 import { getCelciusFromKelvin, getScore } from '../helpers'
 import { AMOUNT_OF_GUESSES, Guess } from '../WeatherGame'
 
@@ -15,6 +16,7 @@ interface GameScreenProps {
 const GameScreen = ({ guesses, setGuesses, onGameFinish }: GameScreenProps): JSX.Element => {
   const [selectedCities, setSelectedCities] = useState<Array<string>>([])
   const [currentCityIdx, setCurrentCityIdx] = useState<number>(0)
+  const [showError, setShowError] = useState<boolean>(false)
 
   const score = getScore(guesses)
 
@@ -52,17 +54,30 @@ const GameScreen = ({ guesses, setGuesses, onGameFinish }: GameScreenProps): JSX
           onGameFinish()
         }
       })
+      .catch(() => {
+        setShowError(true)
+      })
   }
 
   return (
-    <div>
-      <h4 className='text-center'>Score: {score}</h4>
-      <CityGuess
-        city={selectedCities[currentCityIdx]}
-        onGuess={onGuess}
-        isLastGuess={currentCityIdx === AMOUNT_OF_GUESSES - 1}
-      />
-      <AnswersDisplay guesses={guesses} />
+    <div className='container w-100 mx-auto'>
+      <div className='row'>
+        <div className='col-sm-12'>
+          {!showError ? (
+            <>
+              <h4 className='text-center'>Score: {score}</h4>
+              <CityGuess
+                city={selectedCities[currentCityIdx]}
+                onGuess={onGuess}
+                isLastGuess={currentCityIdx === AMOUNT_OF_GUESSES - 1}
+              />
+              <AnswersDisplay guesses={guesses} />
+            </>
+          ) : (
+            <ErrorNotification />
+          )}
+        </div>
+      </div>
     </div>
   )
 }

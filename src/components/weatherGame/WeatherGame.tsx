@@ -48,7 +48,13 @@ const WeatherGame = (): JSX.Element => {
         return null
     }
   }
-  return <div className='w-75 mx-auto pt-5'>{renderGameState()}</div>
+  return (
+    <div className='container m-0 mx-auto'>
+      <div className='row w-100 m-0'>
+        <div className='col-md-10 col-sm-12 mx-auto pt-5'>{renderGameState()}</div>
+      </div>
+    </div>
+  )
 }
 
 export default WeatherGame

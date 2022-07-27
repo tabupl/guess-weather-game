@@ -20,7 +20,7 @@ const GameFinish = ({ guesses, onPlayAgain }: GameFinishProps): JSX.Element => {
           Your score is {score}/{AMOUNT_OF_GUESSES}
         </h3>
       </div>
-      <Button className='w-25 mt-2 d-block mx-auto' onClick={onPlayAgain}>
+      <Button className='w-50 mt-2 d-block mx-auto' onClick={onPlayAgain}>
         Play again
       </Button>
     </>
